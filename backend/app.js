@@ -1,8 +1,23 @@
 const express = require("express");
+const mongoose = require("mongoose");
+
+require("dotenv").config();
 
 const Post = require("./models/post");
 
 const app = express();
+
+mongoose
+  .connect(
+    `mongodb+srv://usun16:${process.env.mongodbPassword}@mean-course.n7aqc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .then(() => {
+    console.log("Conneted to database!");
+  })
+  .catch(() => {
+    console.log("Connection failed!");
+  });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
