@@ -2,10 +2,9 @@ const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
 
-require("dotenv").config();
-
 const postsRoutes = require("./routes/posts");
 
+require("dotenv").config();
 const app = express();
 
 mongoose
@@ -14,10 +13,9 @@ mongoose
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
-    console.log("Conneted to database!");
+    console.log("Connected to database!");
   })
-  .catch((error) => {
-    console.log(error);
+  .catch(() => {
     console.log("Connection failed!");
   });
 
@@ -29,7 +27,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    "Origin, X-Requested-With, Content-Type, Accept"
   );
   res.setHeader(
     "Access-Control-Allow-Methods",

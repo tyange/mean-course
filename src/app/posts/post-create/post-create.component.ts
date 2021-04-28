@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { PostsService } from '../posts.service';
@@ -22,7 +22,7 @@ export class PostCreateComponent implements OnInit {
   private postId: string;
 
   constructor(
-    private postsService: PostsService,
+    public postsService: PostsService,
     public route: ActivatedRoute
   ) {}
 
@@ -48,11 +48,12 @@ export class PostCreateComponent implements OnInit {
             id: postData._id,
             title: postData.title,
             content: postData.content,
-            imagePath: null,
+            imagePath: postData.imagePath,
           };
           this.form.setValue({
             title: this.post.title,
             content: this.post.content,
+            image: this.post.imagePath,
           });
         });
       } else {
@@ -73,10 +74,10 @@ export class PostCreateComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  onAddPost() {
-    // if (this.form.invalid) {
-    //   return;
-    // }
+  onSavePost() {
+    if (this.form.invalid) {
+      return;
+    }
     this.isLoading = true;
     if (this.mode === 'create') {
       this.postsService.addPost(
@@ -88,7 +89,8 @@ export class PostCreateComponent implements OnInit {
       this.postsService.updatePost(
         this.postId,
         this.form.value.title,
-        this.form.value.content
+        this.form.value.content,
+        this.form.value.image
       );
     }
     this.form.reset();
