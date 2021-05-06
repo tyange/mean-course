@@ -5,12 +5,11 @@ const mongoose = require("mongoose");
 const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
 
-require("dotenv").config();
 const app = express();
 
 mongoose
   .connect(
-    `mongodb+srv://usun16:${process.env.mongodbPassword}@mean-course.n7aqc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
+    `mongodb+srv://usun16:${process.env.MONGO_ATLAS_PW}@mean-course.n7aqc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
