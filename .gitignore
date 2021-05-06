@@ -50,3 +50,5 @@ environment.prod.ts
 environment.ts
 .env
 nodemon.json
+
+deployments
